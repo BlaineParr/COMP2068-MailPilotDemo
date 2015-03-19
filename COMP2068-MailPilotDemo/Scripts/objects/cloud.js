@@ -10,11 +10,8 @@ var objects;
         __extends(Cloud, _super);
         //Constructor/////////////////////////////////////////////////////////////////////////////
         function Cloud() {
-            _super.call(this, assetLoader.getResult("cloud"));
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-            this.regX = this.getBounds().width * 0.5;
-            this.regY = this.getBounds().height * 0.5;
+            _super.call(this, "cloud");
+            this.soundString = "thunder";
             this._reset();
         } //constructor ends
         //Private Methods/////////////////////////////////////////////////////////////////////////
@@ -37,7 +34,7 @@ var objects;
             this._checkBounds();
         }; //method update ends
         return Cloud;
-    })(createjs.Bitmap);
+    })(objects.GameObject);
     objects.Cloud = Cloud; //class Plane ends
 })(objects || (objects = {})); //module objects ends   
 //# sourceMappingURL=cloud.js.map

@@ -8,14 +8,12 @@ var objects;
 (function (objects) {
     var Island = (function (_super) {
         __extends(Island, _super);
+        //instance variables
         //Constructor/////////////////////////////////////////////////////////////////////////////
         function Island() {
-            _super.call(this, assetLoader.getResult("island"));
+            _super.call(this, "island");
             this._dy = 5;
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-            this.regX = this.getBounds().width * 0.5;
-            this.regY = this.getBounds().height * 0.5;
+            this.soundString = "yay";
             this._reset();
         } //constructor ends
         //Private Methods/////////////////////////////////////////////////////////////////////////
@@ -35,7 +33,7 @@ var objects;
             this._checkBounds();
         }; //method update ends
         return Island;
-    })(createjs.Bitmap);
+    })(objects.GameObject);
     objects.Island = Island; //class Plane ends
 })(objects || (objects = {})); //module objects ends  
 //# sourceMappingURL=island.js.map
