@@ -19,7 +19,7 @@ var objects;
         //Private Methods/////////////////////////////////////////////////////////////////////////
         Ocean.prototype._reset = function () {
             this.x = 0;
-            this.y = -960;
+            this.y = -constants.SCREEN_HEIGHT * 2;
         }; //method reset ends
         Ocean.prototype._checkBounds = function () {
             if (this.y >= 0) {

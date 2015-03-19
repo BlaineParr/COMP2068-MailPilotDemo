@@ -3,13 +3,16 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
+/// <reference path="constants.ts" />
 /// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/plane.ts" />
 /// <reference path="objects/island.ts" />
 /// <reference path="objects/cloud.ts" />
 /// <reference path="objects/ocean.ts" />
 /// <reference path="typings/stats/stats.d.ts" />
-
+/// <reference path="objects/button.ts" />
+/// <reference path="objects/label.ts" />
+/// <reference path="objects/scoreboard.ts" />
 
 var stats: Stats = new Stats();
 var canvas;
@@ -22,6 +25,7 @@ var plane: objects.Plane;
 var island: objects.Island;
 var clouds: objects.Cloud[] = [];
 var ocean: objects.Ocean;
+var scoreBoard: objects.ScoreBoard;
 
 // asset manifest - array of asset objects
 var manifest = [
@@ -57,15 +61,27 @@ function gameLoop() {
     stats.begin();
     stage.update(); // Refreshes our stage
     plane.update(); //updates plane's position
-    island.update(); //updates island's position
-    checkCollision(island);
+    island.update(); //updates island's position    
     ocean.update(); //updates ocean's position
     stats.end();
 
-    for (var cloud = 3; cloud > 0; cloud--) {
-        clouds[cloud].update(); //updates cloud's position
-        checkCollision(clouds[cloud]);
-    } //for ends
+    if (scoreBoard.lives > 0) {
+        checkCollision(island);
+
+        for (var cloud = constants.CLOUD_NUM; cloud > 0; cloud--) {
+            clouds[cloud].update(); //updates cloud's position
+            checkCollision(clouds[cloud]);
+        } //for ends
+    } //if ends;
+
+    scoreBoard.update();
+
+    if (scoreBoard.lives < 1) {
+        game.removeAllChildren();
+        game.removeAllEventListeners();
+        createjs.Sound.stop();
+        stage.removeAllChildren();
+    } //if ends
 } //function gameLoop ends
 
 
@@ -87,10 +103,13 @@ function main() {
     game.addChild(plane);
 
     //add clouds to game
-    for (var cloud = 3; cloud > 0; cloud--) {
+    for (var cloud = constants.CLOUD_NUM; cloud > 0; cloud--) {
         clouds[cloud] = new objects.Cloud(); //updates cloud's position
         game.addChild(clouds[cloud]);
     } //for ends
+
+    scoreBoard = new objects.ScoreBoard();
+
     setupStats();
 } //function main ends
 
@@ -116,9 +135,15 @@ function checkCollision(collider: objects.GameObject) {
     p2.x = collider.x;
     p2.y = collider.y;
     if (distance(p2, p1) < ((plane.height * 0.5) + (collider.height * 0.5))) {
-        if (!collider.isColliding) {
+        if (!collider.isColliding) { //collision has occurred
             createjs.Sound.play(collider.soundString);
             collider.isColliding = true;
+
+            switch(collider.name) {
+                case "island": scoreBoard.score += 100;
+                    break;
+                case "cloud": scoreBoard.lives--;
+            } //case ends
         } //if ends
     } //if ends
     else {

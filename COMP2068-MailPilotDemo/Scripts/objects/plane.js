@@ -11,6 +11,7 @@ var objects;
         //Constructor/////////////////////////////////////////////////////////////////////////////
         function Plane() {
             _super.call(this, assetLoader.getResult("plane"));
+            this.name = "plane";
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;

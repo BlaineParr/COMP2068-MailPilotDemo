@@ -11,19 +11,20 @@ var objects;
         //Constructor/////////////////////////////////////////////////////////////////////////////
         function Cloud() {
             _super.call(this, "cloud");
+            this.name = "cloud";
             this.soundString = "thunder";
             this._reset();
         } //constructor ends
         //Private Methods/////////////////////////////////////////////////////////////////////////
         Cloud.prototype._reset = function () {
             //set x to a random number
-            this.x = Math.floor(Math.random() * 640);
+            this.x = Math.floor(Math.random() * constants.SCREEN_WIDTH);
             this.y = -this.width;
             this._dy = Math.floor(Math.random() * 5) + 5;
             this._dx = Math.floor(Math.random() * -4) + 2;
         }; //method reset ends
         Cloud.prototype._checkBounds = function () {
-            if (this.y > 480 + this.height) {
+            if (this.y > constants.SCREEN_HEIGHT + this.height) {
                 this._reset();
             } //if ends
         }; //method checkBounds ends

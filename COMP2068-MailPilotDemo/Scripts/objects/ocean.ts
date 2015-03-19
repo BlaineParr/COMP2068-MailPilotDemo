@@ -18,7 +18,7 @@
         //Private Methods/////////////////////////////////////////////////////////////////////////
         private _reset() {
             this.x = 0;
-            this.y = -960;
+            this.y = -constants.SCREEN_HEIGHT * 2;
         } //method reset ends
 
         private _checkBounds() {

@@ -2,9 +2,13 @@
     export class Plane extends createjs.Bitmap {
         public width: number;
         public height: number;
+        public name: string;
         //Constructor/////////////////////////////////////////////////////////////////////////////
         constructor() {
             super(assetLoader.getResult("plane"));
+
+            this.name = "plane";
+
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 

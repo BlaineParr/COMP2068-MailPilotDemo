@@ -5,6 +5,7 @@
         public height: number;
         public isColliding: boolean;
         public soundString: string;
+        public name: string;
 
         protected _dx;
         protected _dy;

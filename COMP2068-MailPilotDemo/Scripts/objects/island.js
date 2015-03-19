@@ -8,10 +8,10 @@ var objects;
 (function (objects) {
     var Island = (function (_super) {
         __extends(Island, _super);
-        //instance variables
         //Constructor/////////////////////////////////////////////////////////////////////////////
         function Island() {
             _super.call(this, "island");
+            this.name = "island";
             this._dy = 5;
             this.soundString = "yay";
             this._reset();
@@ -19,11 +19,11 @@ var objects;
         //Private Methods/////////////////////////////////////////////////////////////////////////
         Island.prototype._reset = function () {
             //set x to a random number
-            this.x = Math.floor(Math.random() * 640);
+            this.x = Math.floor(Math.random() * constants.SCREEN_WIDTH);
             this.y = -this.width;
         }; //method reset ends
         Island.prototype._checkBounds = function () {
-            if (this.y > 480 + this.height) {
+            if (this.y > constants.SCREEN_HEIGHT + this.height) {
                 this._reset();
             } //if ends
         }; //method checkBounds ends
